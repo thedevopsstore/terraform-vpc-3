@@ -8,14 +8,15 @@ resource "aws_vpc" "demo" {
   tags = {
     Name = "demo"
     created = "Terraform"
+    Env     = var.ENV
   }
 }
 
 # Subnets public
 resource "aws_subnet" "demo-public-1" {
   vpc_id     = aws_vpc.demo.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block = var.public_subnet[0]
+  availability_zone = var.zone[0]
   map_public_ip_on_launch = "true"
 
 
@@ -26,8 +27,8 @@ resource "aws_subnet" "demo-public-1" {
 
 resource "aws_subnet" "demo-public-2" {
   vpc_id     = aws_vpc.demo.id
-  cidr_block = "10.0.2.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block = var.public_subnet[1]
+  availability_zone = var.zone[1]
   map_public_ip_on_launch = "true"
 
 
@@ -39,8 +40,8 @@ resource "aws_subnet" "demo-public-2" {
 # Subnets private
 resource "aws_subnet" "demo-private-1" {
   vpc_id     = aws_vpc.demo.id
-  cidr_block = "10.0.3.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block = var.private_subnet[0]
+  availability_zone = var.zone[0]
   map_public_ip_on_launch = "false"
 
 
@@ -51,8 +52,8 @@ resource "aws_subnet" "demo-private-1" {
 
 resource "aws_subnet" "demo-private-2" {
   vpc_id     = aws_vpc.demo.id
-  cidr_block = "10.0.4.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block = var.private_subnet[1]
+  availability_zone = var.zone[1]
   map_public_ip_on_launch = "false"
 
 
