@@ -1,3 +1,7 @@
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_vpc" "demo" {
   cidr_block       = "10.0.0.0/16"
   instance_tenancy = "default"
@@ -16,7 +20,7 @@ resource "aws_vpc" "demo" {
 resource "aws_subnet" "demo-public-1" {
   vpc_id     = aws_vpc.demo.id
   cidr_block = var.public_subnet[0]
-  availability_zone = var.zone[0]
+  availability_zone = data.aws_availability_zones.available.names[0]
   map_public_ip_on_launch = "true"
 
 
@@ -28,7 +32,7 @@ resource "aws_subnet" "demo-public-1" {
 resource "aws_subnet" "demo-public-2" {
   vpc_id     = aws_vpc.demo.id
   cidr_block = var.public_subnet[1]
-  availability_zone = var.zone[1]
+  availability_zone = data.aws_availability_zones.available.names[1]
   map_public_ip_on_launch = "true"
 
 
@@ -41,7 +45,7 @@ resource "aws_subnet" "demo-public-2" {
 resource "aws_subnet" "demo-private-1" {
   vpc_id     = aws_vpc.demo.id
   cidr_block = var.private_subnet[0]
-  availability_zone = var.zone[0]
+  availability_zone = data.aws_availability_zones.available.names[0]
   map_public_ip_on_launch = "false"
 
 
@@ -53,7 +57,7 @@ resource "aws_subnet" "demo-private-1" {
 resource "aws_subnet" "demo-private-2" {
   vpc_id     = aws_vpc.demo.id
   cidr_block = var.private_subnet[1]
-  availability_zone = var.zone[1]
+  availability_zone = data.aws_availability_zones.available.names[1]
   map_public_ip_on_launch = "false"
 
 
