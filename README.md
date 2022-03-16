@@ -10,6 +10,6 @@ cd terraform-vpc-3
 
 terraform init
 
-terraform plan -var="ENV=<env like dev or stage or prod default is dev>" -var="AWS_REGION=<region default is us-east-1>"
+terraform plan -var="ENV=dev" -var="AWS_REGION=us-east-1"
   
-terraform apply -var="ENV=<env like dev or stage or prod default is dev>" -var="AWS_REGION=<region default is us-east-1>"
+terraform apply -var="ENV=dev" -var="AWS_REGION=us-east-1"
